@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
-const User = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "Name is required as hell"],
@@ -26,20 +26,20 @@ const User = mongoose.Schema({
   },
 });
 
-User.pre("save", async function () {
+UserSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-User.methods.createJwt = function () {
+UserSchema.methods.createJwt = function () {
   return jwt.sign({ id: this._id, name: this.name }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 };
 
-User.methods.isMatch = async function (password) {
+UserSchema.methods.isMatch = async function (password) {
   const isMatch = await bcrypt.compare(password, this.password);
   return isMatch;
 };
 
-module.exports = mongoose.model("User", User);
+module.exports = mongoose.model("User", UserSchema);

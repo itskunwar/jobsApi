@@ -6,6 +6,8 @@ const {
   notFound: notFoundMiddleware,
 } = require("./middlewares");
 const authRoutes = require("./routes/authRoutes");
+const jobRoutes = require("./routes/jobRoutes");
+const authorize = require("./middlewares/jwtAuth");
 
 const PORT = process.env.PORT;
 const app = express();
@@ -13,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/v1/auth", authRoutes);
-// app.use("/api/v1/jobs");
+app.use("/api/v1/jobs", authorize, jobRoutes);
 
 app.use(errorHandlerMiddleware);
 app.use(notFoundMiddleware);
