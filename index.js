@@ -16,6 +16,11 @@ const authorize = require("./middlewares/jwtAuth");
 const PORT = process.env.PORT;
 const app = express();
 
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDoc = YAML.load("./swagger.yaml");
+
+app.set("trust proxy", 1);
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -26,6 +31,12 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send('<h1>JOBS API</h1><a href="/api-docs">Documentation</a>');
+});
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/jobs", authorize, jobRoutes);

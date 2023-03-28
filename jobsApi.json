@@ -1,0 +1,213 @@
+{
+  "info": {
+    "_postman_id": "b5a7055e-1171-4453-b347-5b0d42eb0f4a",
+    "name": "jobsApi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26414458"
+  },
+  "item": [
+    {
+      "name": "User Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsonData = pm.response.json()\r",
+              "pm.globals.set(\"accessToken\",jsonData.token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imt1bndkc3NkYXJkZCIsImlkIjozNSwiaWF0IjoxNjc5NTExMzgwLCJleHAiOjE2Nzk1OTc3ODB9.gqitPfpfihedCNZNNisJwaTD2tR2r8eU7Uchqx_lGGU",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"abcd1@gmail.com\",\r\n    \"password\":\"helloo\",\r\n    \"name\":\"mark\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/auth/login",
+          "host": ["{{URL}}"],
+          "path": ["auth", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User SignUp",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MWQ2Zjc4Nzk2NjEzYTEyYWJhZmEzMiIsIm5hbWUiOiJtYXJrIiwiaWF0IjoxNjc5NjUwNjgwLCJleHAiOjE2Nzk3MzcwODB9.fc-PPLU8M_zz0_yvLAgSCSq2p-ycTgpoz2LOtwVaCDA",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"abcd2@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/auth/signUp",
+          "host": ["{{URL}}"],
+          "path": ["auth", "signUp"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Jobs",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/jobs",
+          "host": ["{{URL}}"],
+          "path": ["jobs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Job",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/jobs/641d73e9ce2e399d61db249a",
+          "host": ["{{URL}}"],
+          "path": ["jobs", "641d73e9ce2e399d61db249a"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Job",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"company\":\"Acer\",\r\n    \"position\":\"Devop Eng\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/jobs/641d73e9ce2e399d61db249a",
+          "host": ["{{URL}}"],
+          "path": ["jobs", "641d73e9ce2e399d61db249a"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Job",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/jobs/641d73e9ce2e399d61db249",
+          "host": ["{{URL}}"],
+          "path": ["jobs", "641d73e9ce2e399d61db249"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Job",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"company\":\"Dell\",\r\n    \"position\":\"DATAMAN\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/jobs",
+          "host": ["{{URL}}"],
+          "path": ["jobs"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
